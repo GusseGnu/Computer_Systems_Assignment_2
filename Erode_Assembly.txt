@@ -1,71 +1,62 @@
-// Initialize x and y for the for loops
-LI R1, 0
+LI R1, 0 // Initialize x and y for the for loops
 LI R2, 0
 
-// Initialize the memory pointers for the in- and output image
-
-LI R3, 0
+LI R3, 0 // Initialize the memory pointers for the in- and output image
 LI R4, 400
 
-// Load pixel in input image
-
-LD R5, R3
-
-// Initialize R6 as 20 and R7 as 19 for computations
-
-LI R6, 20
+LI R6, 20 // Initialize R6 as 20, R7 as 19 and R8 as 255 for computations
 LI R7, 19
+LI R8, 255
 
-JEQ BorderX0, R1, R0
-JEQ BorderY0, R2, R0
-JEQ BorderX19, R1, R0
-JEQ BorderY19, R1, R0
+Loop:
+LD R5, R3 // Load pixel in input image
 
-JEQ InBlack, R5, R0
-JR InWhite
+JEQ MakeBlack, R1, R0	// Check if pixel is on border
+JEQ MakeBlack, R2, R0
+JEQ MakeBlack, R1, R7
+JEQ MakeBlack, R2, R7
 
+JEQ MakeBlack, R5, R0 // If pixel is black
+JR InWhite	// If pixel is white
 
-BorderX0:
-MULT R8, R2, R6
-ADD R4, R1, R8
+MakeBlack:
 SD R0, R4
-JR 20
-
-BorderY0:
-MULT R8, R2, R6
-ADD R4, R1, R8
-SD R0, R4
-JR 21
-
-BorderX19:
-MULT R8, R2, R6
-ADD R4, R1, R8
-SD R0, R4
-JR 22
-
-BorderY19:
-MULT R8, R2, R6
-ADD R4, R1, R8
-SD R0, R4
-JR 24
-
-InBlack:
-MULT R8, R2, R6
-ADD R4, R1, R8
-SD R0, R4
-JR 25
+JR Increment
 
 InWhite:
-SUBI R9, R1, 1
-SUBI R10, R2, 1
-ADDI R11, R1, 1
-ADDI R12, R2, 1
+SUBI R10, R1, 1	// Initialize x-1, y-1, x+1 and y+1
+SUBI R11, R2, 1
+ADDI R12, R1, 1
+ADDI R13, R2, 1
 
-LD R5 
-JEQ Erode, R9, R0
-JEQ Erode, R10, R0
-JEQ Erode, R11, R0
-JEQ Erode, R12, R0
+MULT R9, R2, R6		// x-1
+ADD R4, R10, R9
+LD R5, R4
+JEQ MakeBlack, R5, R0
 
-Erode:
+MULT R9, R11, R6		// y-1
+ADD R4, R1, R9
+LD R5, R4
+JEQ MakeBlack, R5, R0
 
+MULT R9, R2, R6		// x+1
+ADD R4, R12, R9
+LD R5, R4
+JEQ MakeBlack, R5, R0
+
+MULT R9, R13, R6		// y+1
+ADD R4, R1, R9
+LD R5, R4
+JEQ MakeBlack, R5, R0
+
+SD R8, R4	//Don't erode
+
+Increment:
+ADDI R3, R3, 1
+ADDI R4, R3, 400
+ADDI R1, R1, 1
+JLT Loop, R1, R6
+LI R1, 0
+ADDI R2, R2, 1
+JLT Loop, R2, R6
+END
