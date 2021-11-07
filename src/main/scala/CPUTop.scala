@@ -32,7 +32,7 @@ class CPUTop extends Module {
   programMemory.io.address := programCounter.io.programCounter
 
   ////////////////////////////////////////////
-  //Continue here with your connections
+  programCounter.io.jump
   ////////////////////////////////////////////
 
   //This signals are used by the tester for loading the program to the program memory, do not touch

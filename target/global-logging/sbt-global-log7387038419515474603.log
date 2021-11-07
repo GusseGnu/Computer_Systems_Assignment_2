@@ -1,0 +1,12 @@
+[debug] > Exec(test:runMain HelloTester, None, None)
+[debug] Evaluating tasks: Test / runMain
+[warn] sbt 0.13 shell syntax is deprecated; use slash syntax instead: Test / runMain
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 8 Scala sources to C:\Users\Aleksandar\Computer_Systems_Assignment_2\target\scala-2.12\classes ...
+[error] C:\Users\Aleksandar\Computer_Systems_Assignment_2\src\main\scala\ALU.scala:55:4: '}' expected but eof found.
+[error]   }
+[error]    ^
+[error] one error found
+[error] (Compile / compileIncremental) Compilation failed
+[error] Total time: 0 s, completed 07-11-2021 22:11:38
+[debug] > Exec(idea-shell, None, None)

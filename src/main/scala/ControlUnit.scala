@@ -10,7 +10,7 @@ class ControlUnit extends Module {
     var run = Output(Bool())
     // ALU control signals
     var sel = Output(UInt(4.W))
-    var imidiate = Output(UInt(10.W))
+    var imi = Output(UInt(10.W))
     // RegisterFile control signals
     var aSel = Output(UInt(4.W))
     var bSel = Output(UInt(4.W))
@@ -31,10 +31,10 @@ class ControlUnit extends Module {
   io.dmWriteEnable = instRead(22)
   io.writeSel = instRead(21,18)
 
-  /*
+  /* Instruction input format:
   R: {00 RS}{sel_}{wW wS}{el 00}{0000}{0000}{aSel}{bSel}
-  I: {01 RS}{sel_}{wW wS}{el __  imid  iate}{aSel}{bSel}
-  J: {10 RS}{sel_}{wW wS}{el __  imid  iate}{aSel}{bSel}
+  I: {01 RS}{sel_}{wW wS}{el im i___ ____}{aSel}{bSel}
+  J: {10 RS}{sel_}{wW wS}{el im i___ ____}{aSel}{bSel}
   */
 
   switch(instRead(31,30)) {
@@ -43,12 +43,12 @@ class ControlUnit extends Module {
       io.bSel = instRead(3,0)
     }
     is("b01".U){
-      io.imidiate = instRead(17,8)
+      io.imi = instRead(17,8)
       io.aSel = instRead(7,4)
       io.bSel = instRead(3,0)
     }
     is("b10".U){
-      io.imidiate = instRead(17,8)
+      io.imi = instRead(17,8)
       io.aSel = instRead(7,4)
       io.bSel = instRead(3,0)
       io.jump = 1.B
