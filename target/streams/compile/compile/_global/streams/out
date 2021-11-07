@@ -1,6 +1,2 @@
-[debug] Acquiring lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock ...
-[error] C:\Users\Aleksandar\Computer_Systems_Assignment_2\src\main\scala\ALU.scala:55:4: '}' expected but eof found.
-[error]   }
-[error]    ^
-[error] one error found
-[debug] Releasing lock on file C:\Users\Aleksandar\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock.
+[debug] Acquiring lock on file C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock ...
+[debug] Releasing lock on file C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock.
