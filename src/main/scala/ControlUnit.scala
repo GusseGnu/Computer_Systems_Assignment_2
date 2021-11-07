@@ -3,29 +3,56 @@ import chisel3.util._
 
 class ControlUnit extends Module {
   val io = IO(new Bundle {
-    val opcode = Input(UInt(16.W))
+    val instRead = Input(UInt(32.W))
     // ProgramCounter control signals
-    val jump = Output(Bool())
-    val stop = Output(Bool())
-    val run = Output(Bool())
+    var jump = Output(Bool())
+    var stop = Output(Bool())
+    var run = Output(Bool())
     // ALU control signals
-    val sel = Output(UInt(4.W))
+    var sel = Output(UInt(4.W))
+    var imidiate = Output(UInt(10.W))
     // RegisterFile control signals
-    val aSel = Output(UInt(4.W))
-    val bSel = Output(UInt(4.W))
-    val writeSel = Output(UInt(4.W))
-    val writeEnable = Output(Bool())
+    var aSel = Output(UInt(4.W))
+    var bSel = Output(UInt(4.W))
+    var writeSel = Output(UInt(4.W))
+    var writeEnable = Output(Bool()) // b29
     // DataMemory control signals
-    val dmWriteEnable = Output(Bool())
+    var dmWriteEnable = Output(Bool()) // b28
 
   })
 
-  switch(io.opcode) {
+  // declare variables and assign role to bit in instruction input
+  val instRead = io.instRead
+  val instType = instRead(31,30)
+  io.run = instRead(29)
+  io.stop = instRead(28)
+  io.sel = instRead(27,24)
+  io.writeEnable = instRead(23)
+  io.dmWriteEnable = instRead(22)
+  io.writeSel = instRead(21,18)
 
+  /*
+  R: {00 RS}{sel_}{wW wS}{el 00}{0000}{0000}{aSel}{bSel}
+  I: {01 RS}{sel_}{wW wS}{el __  imid  iate}{aSel}{bSel}
+  J: {10 RS}{sel_}{wW wS}{el __  imid  iate}{aSel}{bSel}
+  */
 
-
-
-
+  switch(instRead(31,30)) {
+    is("b00".U){
+      io.aSel = instRead(7,4)
+      io.bSel = instRead(3,0)
+    }
+    is("b01".U){
+      io.imidiate = instRead(17,8)
+      io.aSel = instRead(7,4)
+      io.bSel = instRead(3,0)
+    }
+    is("b10".U){
+      io.imidiate = instRead(17,8)
+      io.aSel = instRead(7,4)
+      io.bSel = instRead(3,0)
+      io.jump = 1.B
+    }
   }
 
 }
