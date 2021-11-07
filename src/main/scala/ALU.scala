@@ -7,7 +7,7 @@ class ALU extends Module {
     val b = Input(UInt(16.W))
     val sel = Input(UInt(16.W))
     val res = Output(UInt(16.W))
-    val comp = Output(UInt(1.W))
+    val comp = Output(Bool())
   })
 
   // initialise variable names
@@ -19,7 +19,7 @@ class ALU extends Module {
 
   // Default value for result
   res := 0.U
-  comp = 1.U
+  comp = 1.B
 
   // The ALU selection
   switch(sel){ // Op-code
@@ -35,10 +35,10 @@ class ALU extends Module {
     is("b0110".U){res = a} // SD - Store data
 
     // Branches
-    is("b0111".U){res = a; comp = 1.U} // JR - Jump
-    is("b1000".U){res = a; if (a == b) {comp = 1.U}} // JEQ - Jump if equal
-    is("b1001".U){res = a; if (a < b == 1.B) {comp = 1.U}} // JLT - Jump if less than
-    is("b1010".U){res = 65535.U; comp = 1.U} // END - End execution
+    is("b0111".U){res = a; comp = 1.B} // JR - Jump
+    is("b1000".U){res = a; when (a === b) {comp = 1.B}} // JEQ - Jump if equal
+    is("b1001".U){res = a; when (a < b === 1.B) {comp = 1.B}} // JLT - Jump if less than
+    is("b1010".U){res = 65535.U; comp = 1.B} // END - End execution. Set to max value for 16 bit
 
     
     //    // Logical
