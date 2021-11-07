@@ -1,2 +1,7 @@
 [debug] Acquiring lock on file C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock ...
+[warn] C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\src\main\scala\CPUTop.scala:35:21: a pure expression does nothing in statement position; multiline expressions may require enclosing parentheses
+[warn]   programCounter.io.jump
+[warn]                     ^
+[warn] there were 47 feature warnings; re-run with -feature for details
+[warn] two warnings found
 [debug] Releasing lock on file C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\project\target\.sbt-compilation-infos\computer_systems_assignment_2-compile\.sbt-idea-lock.

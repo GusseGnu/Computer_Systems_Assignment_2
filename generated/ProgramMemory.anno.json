@@ -1,0 +1,46 @@
+[
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~ProgramMemory|ProgramMemory>io_instructionRead",
+    "sources":[
+      "~ProgramMemory|ProgramMemory>io_testerEnable",
+      "~ProgramMemory|ProgramMemory>io_address"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~ProgramMemory|ProgramMemory>io_testerDataRead",
+    "sources":[
+      "~ProgramMemory|ProgramMemory>io_testerEnable",
+      "~ProgramMemory|ProgramMemory>io_testerWriteEnable",
+      "~ProgramMemory|ProgramMemory>io_testerDataWrite",
+      "~ProgramMemory|ProgramMemory>io_testerAddress"
+    ]
+  },
+  {
+    "class":"logger.LogLevelAnnotation",
+    "globalLogLevel":{
+      
+    }
+  },
+  {
+    "class":"firrtl.options.TargetDirAnnotation",
+    "directory":"generated"
+  },
+  {
+    "class":"firrtl.stage.phases.DriverCompatibility$TopNameAnnotation",
+    "topName":"ProgramMemory"
+  },
+  {
+    "class":"firrtl.options.OutputAnnotationFileAnnotation",
+    "file":"ProgramMemory"
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated"
+  }
+]

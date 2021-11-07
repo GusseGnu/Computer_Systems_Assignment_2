@@ -2,5 +2,59 @@
 [debug] IncrementalCompile.incrementalCompile
 [debug] previous = Stamps for: 16 products, 8 sources, 3 libraries
 [debug] current source = Set(${BASE}/src/main/scala/ProgramMemory.scala, ${BASE}/src/main/scala/DataMemory.scala, ${BASE}/src/main/scala/Hello.scala, ${BASE}/src/main/scala/ControlUnit.scala, ${BASE}/src/main/scala/ProgramCounter.scala, ${BASE}/src/main/scala/RegisterFile.scala, ${BASE}/src/main/scala/ALU.scala, ${BASE}/src/main/scala/CPUTop.scala)
-[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(), unmodified = ...),Set(),Set(),API Changes: Set())
-[debug] No changes
+[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/main/scala/ControlUnit.scala, ${BASE}/src/main/scala/ProgramCounter.scala, ${BASE}/src/main/scala/CPUTop.scala), unmodified = ...),Set(),Set(),API Changes: Set())
+[debug] 
+[debug] Initial source changes:
+[debug] 	removed: Set()
+[debug] 	added: Set()
+[debug] 	modified: Set(${BASE}/src/main/scala/ControlUnit.scala, ${BASE}/src/main/scala/ProgramCounter.scala, ${BASE}/src/main/scala/CPUTop.scala)
+[debug] Invalidated products: Set()
+[debug] External API changes: API Changes: Set()
+[debug] Modified binary dependencies: Set()
+[debug] Initial directly invalidated classes: Set(ControlUnit, ProgramCounter, CPUTop)
+[debug] Sources indirectly invalidated by:
+[debug] 	product: Set()
+[debug] 	binary dep: Set()
+[debug] 	external source: Set()
+[debug] All initially invalidated classes: Set(ControlUnit, ProgramCounter, CPUTop)
+[debug] All initially invalidated sources:Set(${BASE}/src/main/scala/ControlUnit.scala, ${BASE}/src/main/scala/ProgramCounter.scala, ${BASE}/src/main/scala/CPUTop.scala)
+[debug] Initial set of included nodes: ControlUnit, ProgramCounter, CPUTop
+[debug] compilation cycle 1
+[info] compiling 3 Scala sources to C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\target\scala-2.12\classes ...
+[debug] Getting org.scala-sbt:compiler-bridge_2.12:1.5.3:compile for Scala 2.12.8
+[debug] [zinc] Running cached compiler 1b797e92 for Scala compiler version 2.12.8
+[debug] [zinc] The Scala compiler is invoked with:
+[debug] 	-Xsource:2.11
+[debug] 	-bootclasspath
+[debug] 	C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\resources.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\rt.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\sunrsasign.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\jsse.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\jce.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\charsets.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\lib\jfr.jar;C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\jre\classes;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.12.8\scala-library-2.12.8.jar
+[debug] 	-classpath
+[debug] 	C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\target\scala-2.12\classes;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\chisel-iotesters_2.12\1.4.2\chisel-iotesters_2.12-1.4.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\chisel3_2.12\3.3.2\chisel3_2.12-3.3.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\firrtl_2.12\1.3.2\firrtl_2.12-1.3.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\firrtl-interpreter_2.12\1.3.2\firrtl-interpreter_2.12-1.3.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\treadle_2.12\1.2.2\treadle_2.12-1.2.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\junit\junit\4.13\junit-4.13.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scalatest\scalatest_2.12\3.0.8\scalatest_2.12-3.0.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scalacheck\scalacheck_2.12\1.14.3\scalacheck_2.12-1.14.3.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\github\scopt\scopt_2.12\3.7.1\scopt_2.12-3.7.1.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\chisel3-macros_2.12\3.3.2\chisel3-macros_2.12-3.3.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\edu\berkeley\cs\chisel3-core_2.12\3.3.2\chisel3-core_2.12-3.3.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-reflect\2.12.8\scala-reflect-2.12.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\antlr\antlr4-runtime\4.7.1\antlr4-runtime-4.7.1.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\google\protobuf\protobuf-java\3.9.0\protobuf-java-3.9.0.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\net\jcazevedo\moultingyaml_2.12\0.4.2\moultingyaml_2.12-0.4.2.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\json4s\json4s-native_2.12\3.6.8\json4s-native_2.12-3.6.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\apache\commons\commons-text\1.8\commons-text-1.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\modules\scala-jline\2.12.1\scala-jline-2.12.1.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scalactic\scalactic_2.12\3.0.8\scalactic_2.12-3.0.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\modules\scala-xml_2.12\1.2.0\scala-xml_2.12-1.2.0.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-sbt\test-interface\1.0\test-interface-1.0.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\github\nscala-time\nscala-time_2.12\2.22.0\nscala-time_2.12-2.22.0.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\yaml\snakeyaml\1.26\snakeyaml-1.26.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\json4s\json4s-core_2.12\3.6.8\json4s-core_2.12-3.6.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\fusesource\jansi\jansi\1.11\jansi-1.11.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\joda-time\joda-time\2.10.1\joda-time-2.10.1.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\joda\joda-convert\2.2.0\joda-convert-2.2.0.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\json4s\json4s-ast_2.12\3.6.8\json4s-ast_2.12-3.6.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\json4s\json4s-scalap_2.12\3.6.8\json4s-scalap_2.12-3.6.8.jar;C:\Users\gfors\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\thoughtworks\paranamer\paranamer\2.8\paranamer-2.8.jar
+[debug] Invalidating (transitively) by inheritance from ControlUnit...
+[debug] Initial set of included nodes: ControlUnit
+[debug] Invalidated by transitive inheritance dependency: Set(ControlUnit)
+[debug] The following modified names cause invalidation of CPUTop: Set(UsedName(io,[Default]))
+[debug] Change NamesChange(ControlUnit,ModifiedNames(changes = UsedName(io,[Default]), UsedName(imi,[Default]), UsedName(imidiate,[Default]))) invalidates 2 classes due to The ControlUnit has the following regular definitions changed:
+[debug] 	UsedName(io,[Default]), UsedName(imi,[Default]), UsedName(imidiate,[Default]).
+[debug]   > by transitive inheritance: Set(ControlUnit)
+[debug]   > 
+[debug]   > by member reference: Set(CPUTop)
+[debug]         
+[debug] Invalidating (transitively) by inheritance from ProgramCounter...
+[debug] Initial set of included nodes: ProgramCounter
+[debug] Invalidated by transitive inheritance dependency: Set(ProgramCounter)
+[debug] The following modified names cause invalidation of CPUTop: Set(UsedName(jump,[Default]), UsedName(io,[Default]))
+[debug] Change NamesChange(ProgramCounter,ModifiedNames(changes = UsedName(jump,[Default]), UsedName(io,[Default]), UsedName(comp,[Default]))) invalidates 2 classes due to The ProgramCounter has the following regular definitions changed:
+[debug] 	UsedName(jump,[Default]), UsedName(io,[Default]), UsedName(comp,[Default]).
+[debug]   > by transitive inheritance: Set(ProgramCounter)
+[debug]   > 
+[debug]   > by member reference: Set(CPUTop)
+[debug]         
+[debug] New invalidations:
+[debug] 	CPUTop
+[debug] Initial set of included nodes: CPUTop
+[debug] Previously invalidated, but (transitively) depend on new invalidations:
+[debug] Final step, transitive dependencies:
+[debug] 	Set(CPUTop)
+[debug] No classes were invalidated.
+[debug] Scala compilation took 0.8267634 s
+[info] done compiling
