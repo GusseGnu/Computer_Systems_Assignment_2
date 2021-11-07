@@ -5,7 +5,7 @@ class ALU extends Module {
   val io = IO(new Bundle {
     val a = Input(UInt(16.W))
     val b = Input(UInt(16.W))
-    val sel = Input(UInt(16.W))
+    val sel = Input(UInt(4.W))
     val res = Output(UInt(16.W))
     val comp = Output(Bool())
   })
