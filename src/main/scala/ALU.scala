@@ -24,25 +24,47 @@ class ALU extends Module {
   comp = 1.B
 
   // The ALU selection
-  switch(sel){ // Op-code
+  switch(sel) { // Op-code
     // Arithmetic
-    is("b0000".U){res = a + im} // ADDI - Immediate Add
-    is("b0001".U){res = a + b} // ADD - Addition
-    is("b0010".U){res = a - im} // SUBI - Immediate Sub
+    is("b0000".U) {
+      res = a + im
+    } // ADDI - Immediate Add
+    is("b0001".U) {
+      res = a + b
+    } // ADD - Addition
+    is("b0010".U) {
+      res = a - im
+    } // SUBI - Immediate Sub
     //is("b0011".U){res = a * b} // MULT - Multiplication
 
     // Data transfer
-    is("b0100".U){res = a} // LI - Load immediate
-    is("b0101".U){res = a} // LD - Load data
-    is("b0110".U){res = a} // SD - Store data
+    is("b0100".U) {
+      res = a
+    } // LI - Load immediate
+    is("b0101".U) {
+      res = a
+    } // LD - Load data
+    is("b0110".U) {
+      res = a
+    } // SD - Store data
 
     // Branches
-    is("b0111".U){res = a; comp = 1.B} // JR - Jump
-    is("b1000".U){res = a; when (a === b) {comp = 1.B}} // JEQ - Jump if equal
-    is("b1001".U){res = a; when (a < b === 1.B) {comp = 1.B}} // JLT - Jump if less than
+    is("b0111".U) {
+      res = a; comp = 1.B
+    } // JR - Jump
+    is("b1000".U) {
+      res = a; when(a === b) {
+        comp = 1.B
+      }
+    } // JEQ - Jump if equal
+    is("b1001".U) {
+      res = a; when(a < b === 1.B) {
+        comp = 1.B
+      }
+    } // JLT - Jump if less than
     // is("b1010".U){res = 65535.U; comp = 1.B} // END - End execution. Set to max value for 16 bit
 
-    
+
     //    // Logical
     //    is("b0100".U){res = a | b} // OR - Bitwise OR
     //    is("b0101".U){res = a & b} // AND - Bitwise AND
@@ -53,3 +75,4 @@ class ALU extends Module {
     //    is("b1110".U){res = } // NOP - No operation
 
   }
+}
