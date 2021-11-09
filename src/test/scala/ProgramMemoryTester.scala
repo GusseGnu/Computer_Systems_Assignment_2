@@ -1,6 +1,8 @@
 import chisel3._
 import chisel3.iotesters.PeekPokeTester
 
+// Gustav s190141
+
 class ProgramMemoryTester(dut: ProgramMemory) extends PeekPokeTester(dut) {
 
 //Program Memory running for 5 clock cycles

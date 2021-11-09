@@ -1,6 +1,8 @@
 import chisel3._
 import chisel3.iotesters.PeekPokeTester
 
+// Jana s181482
+
 class ALUTester(dut: ALU) extends PeekPokeTester(dut) {
 
   //ALU running for 5 clock cycles

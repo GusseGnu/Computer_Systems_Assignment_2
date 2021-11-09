@@ -2,35 +2,27 @@
 [debug] IncrementalCompile.incrementalCompile
 [debug] previous = Stamps for: 14 products, 7 sources, 3 libraries
 [debug] current source = Set(${BASE}/src/test/scala/ProgramCounterTester.scala, ${BASE}/src/test/scala/ProgramMemoryTester.scala, ${BASE}/src/test/scala/HelloTester.scala, ${BASE}/src/test/scala/CPUTopTester.scala, ${BASE}/src/test/scala/Images.scala, ${BASE}/src/test/scala/Programs.scala, ${BASE}/src/test/scala/ALUTester.scala)
-[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(), unmodified = ...),Set(),Set(),API Changes: Set(NamesChange(ProgramCounter,ModifiedNames(changes = UsedName(jump,[Default]), UsedName(io,[Default]), UsedName(comp,[Default])))))
-[debug] The ProgramCounter has the following regular definitions changed:
-[debug] 	UsedName(jump,[Default]), UsedName(io,[Default]), UsedName(comp,[Default]).
-[debug] All member reference dependencies will be considered within this context.
-[debug] Files invalidated by inheriting from (external) ProgramCounter: Set()
-[debug] Now invalidating by inheritance (internally).
-[debug] Getting direct dependencies of all classes transitively invalidated by inheritance.
-[debug] Getting classes that directly depend on (external) ProgramCounter.
-[debug] The following modified names cause invalidation of ProgramCounterTester: Set(UsedName(jump,[Default]), UsedName(io,[Default]))
+[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/test/scala/ProgramMemoryTester.scala, ${BASE}/src/test/scala/ALUTester.scala, ${BASE}/src/test/scala/ProgramCounterTester.scala), unmodified = ...),Set(),Set(),API Changes: Set())
 [debug] 
 [debug] Initial source changes:
 [debug] 	removed: Set()
 [debug] 	added: Set()
-[debug] 	modified: Set()
+[debug] 	modified: Set(${BASE}/src/test/scala/ProgramMemoryTester.scala, ${BASE}/src/test/scala/ALUTester.scala, ${BASE}/src/test/scala/ProgramCounterTester.scala)
 [debug] Invalidated products: Set()
-[debug] External API changes: API Changes: Set(NamesChange(ProgramCounter,ModifiedNames(changes = UsedName(jump,[Default]), UsedName(io,[Default]), UsedName(comp,[Default]))))
+[debug] External API changes: API Changes: Set()
 [debug] Modified binary dependencies: Set()
-[debug] Initial directly invalidated classes: Set()
+[debug] Initial directly invalidated classes: Set(ProgramMemoryTester, ALUTester, ProgramCounterTester)
 [debug] Sources indirectly invalidated by:
 [debug] 	product: Set()
 [debug] 	binary dep: Set()
-[debug] 	external source: Set(ProgramCounterTester)
-[debug] All initially invalidated classes: Set(ProgramCounterTester)
-[debug] All initially invalidated sources:Set()
-[debug] Initial set of included nodes: ProgramCounterTester
+[debug] 	external source: Set()
+[debug] All initially invalidated classes: Set(ProgramMemoryTester, ALUTester, ProgramCounterTester)
+[debug] All initially invalidated sources:Set(${BASE}/src/test/scala/ProgramMemoryTester.scala, ${BASE}/src/test/scala/ALUTester.scala, ${BASE}/src/test/scala/ProgramCounterTester.scala)
+[debug] Initial set of included nodes: ProgramMemoryTester, ALUTester, ProgramCounterTester
 [debug] compilation cycle 1
-[info] compiling 1 Scala source to C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\target\scala-2.12\test-classes ...
+[info] compiling 3 Scala sources to C:\Users\gfors\IdeaProjects\Computer_Systems_Assignment_2\target\scala-2.12\test-classes ...
 [debug] Getting org.scala-sbt:compiler-bridge_2.12:1.5.3:compile for Scala 2.12.8
-[debug] [zinc] Running cached compiler c4844cc for Scala compiler version 2.12.8
+[debug] [zinc] Running cached compiler 4d8b2393 for Scala compiler version 2.12.8
 [debug] [zinc] The Scala compiler is invoked with:
 [debug] 	-Xsource:2.11
 [debug] 	-bootclasspath
@@ -43,5 +35,5 @@
 [debug] Final step, transitive dependencies:
 [debug] 	Set()
 [debug] No classes were invalidated.
-[debug] Scala compilation took 0.3317504 s
+[debug] Scala compilation took 0.7853837 s
 [info] done compiling

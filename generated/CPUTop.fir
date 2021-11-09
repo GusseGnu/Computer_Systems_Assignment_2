@@ -3,28 +3,31 @@ circuit CPUTop :
   module ProgramCounter : 
     input clock : Clock
     input reset : Reset
-    output io : {flip stop : UInt<1>, flip jump : UInt<1>, flip run : UInt<1>, flip programCounterJump : UInt<16>, programCounter : UInt<16>}
+    output io : {flip jump : UInt<1>, flip comp : UInt<1>, flip run : UInt<1>, flip stop : UInt<1>, flip programCounterJump : UInt<16>, programCounter : UInt<16>}
     
-    node _T = eq(io.run, UInt<1>("h01")) @[ProgramCounter.scala 14:16]
-    when _T : @[ProgramCounter.scala 14:25]
-      node _T_1 = eq(io.jump, UInt<1>("h01")) @[ProgramCounter.scala 15:19]
-      when _T_1 : @[ProgramCounter.scala 15:28]
-        io.programCounter <= io.programCounterJump @[ProgramCounter.scala 16:25]
-        skip @[ProgramCounter.scala 15:28]
-      else : @[ProgramCounter.scala 17:18]
-        node _T_2 = add(io.programCounter, UInt<1>("h01")) @[ProgramCounter.scala 18:46]
-        node _T_3 = tail(_T_2, 1) @[ProgramCounter.scala 18:46]
-        io.programCounter <= _T_3 @[ProgramCounter.scala 18:25]
-        skip @[ProgramCounter.scala 17:18]
-      skip @[ProgramCounter.scala 14:25]
-    else : @[ProgramCounter.scala 20:16]
-      io.programCounter <= io.programCounter @[ProgramCounter.scala 21:23]
-      skip @[ProgramCounter.scala 20:16]
+    reg addressCounterReg : UInt<16>, clock with : (reset => (reset, UInt<16>("h00"))) @[ProgramCounter.scala 15:34]
+    node jump = or(io.jump, io.comp) @[ProgramCounter.scala 16:23]
+    wire W1 : UInt<16> @[ProgramCounter.scala 18:16]
+    node _T = add(addressCounterReg, UInt<16>("h01")) @[ProgramCounter.scala 19:27]
+    node _T_1 = tail(_T, 1) @[ProgramCounter.scala 19:27]
+    W1 <= _T_1 @[ProgramCounter.scala 19:6]
+    wire W2 : UInt<16> @[ProgramCounter.scala 20:16]
+    node _T_2 = mux(jump, io.programCounterJump, W1) @[ProgramCounter.scala 21:12]
+    W2 <= _T_2 @[ProgramCounter.scala 21:6]
+    wire W3 : UInt<1> @[ProgramCounter.scala 22:16]
+    node _T_3 = eq(io.run, UInt<1>("h00")) @[ProgramCounter.scala 23:21]
+    node _T_4 = or(io.stop, _T_3) @[ProgramCounter.scala 23:18]
+    W3 <= _T_4 @[ProgramCounter.scala 23:6]
+    wire W4 : UInt<16> @[ProgramCounter.scala 24:16]
+    node _T_5 = mux(W3, addressCounterReg, W2) @[ProgramCounter.scala 25:12]
+    W4 <= _T_5 @[ProgramCounter.scala 25:6]
+    addressCounterReg <= W4 @[ProgramCounter.scala 27:21]
+    io.programCounter <= addressCounterReg @[ProgramCounter.scala 28:21]
     
   module DataMemory : 
     input clock : Clock
     input reset : Reset
-    output io : {flip address : UInt<16>, dataRead : UInt<32>, flip writeEnable : UInt<1>, flip dataWrite : UInt<32>, flip testerEnable : UInt<1>, flip testerAddress : UInt<16>, testerDataRead : UInt<32>, flip testerWriteEnable : UInt<1>, flip testerDataWrite : UInt<32>}
+    output io : {flip address : UInt<16>, flip writeEnable : UInt<1>, flip dataWrite : UInt<32>, dataRead : UInt<32>, flip testerEnable : UInt<1>, flip testerAddress : UInt<16>, testerDataRead : UInt<32>, flip testerWriteEnable : UInt<1>, flip testerDataWrite : UInt<32>}
     
     cmem memory : UInt<32>[65536] @[DataMemory.scala 18:20]
     when io.testerEnable : @[DataMemory.scala 20:24]
@@ -73,52 +76,165 @@ circuit CPUTop :
   module RegisterFile : 
     input clock : Clock
     input reset : Reset
-    output io : {}
+    output io : {flip aSel : UInt<4>, flip bSel : UInt<4>, flip writeData : UInt<32>, flip writeSel : UInt<4>, flip writeEnable : UInt<1>, a : UInt<32>, b : UInt<32>}
     
+    reg registers : UInt<32>[16], clock @[RegisterFile.scala 27:22]
+    registers[0] <= UInt<1>("h00") @[RegisterFile.scala 28:16]
+    when io.writeEnable : @[RegisterFile.scala 31:22]
+      node _T = gt(io.writeSel, UInt<1>("h00")) @[RegisterFile.scala 32:20]
+      when _T : @[RegisterFile.scala 32:27]
+        registers[io.writeSel] <= io.writeData @[RegisterFile.scala 33:27]
+        skip @[RegisterFile.scala 32:27]
+      skip @[RegisterFile.scala 31:22]
+    io.a <= registers[io.aSel] @[RegisterFile.scala 38:5]
+    io.b <= registers[io.bSel] @[RegisterFile.scala 39:5]
     
   module ControlUnit : 
     input clock : Clock
     input reset : Reset
-    output io : {}
+    output io : {flip instRead : UInt<32>, jump : UInt<1>, stop : UInt<1>, run : UInt<1>, sel : UInt<4>, imi : UInt<10>, aSel : UInt<4>, bSel : UInt<4>, writeSel : UInt<4>, writeEnable : UInt<1>, dmWriteEnable : UInt<1>}
     
+    node instType = bits(io.instRead, 31, 30) @[ControlUnit.scala 28:26]
+    node _T = bits(io.instRead, 29, 29) @[ControlUnit.scala 29:20]
+    node _T_1 = bits(io.instRead, 28, 28) @[ControlUnit.scala 30:21]
+    node _T_2 = bits(io.instRead, 27, 24) @[ControlUnit.scala 31:20]
+    node _T_3 = bits(io.instRead, 23, 23) @[ControlUnit.scala 32:28]
+    node _T_4 = bits(io.instRead, 22, 22) @[ControlUnit.scala 33:30]
+    node _T_5 = bits(io.instRead, 21, 18) @[ControlUnit.scala 34:25]
+    node _T_6 = bits(io.instRead, 31, 30) @[ControlUnit.scala 42:18]
+    node _T_7 = eq(UInt<1>("h00"), _T_6) @[Conditional.scala 37:30]
+    when _T_7 : @[Conditional.scala 40:58]
+      node _T_8 = bits(io.instRead, 7, 4) @[ControlUnit.scala 44:25]
+      node _T_9 = bits(io.instRead, 3, 0) @[ControlUnit.scala 45:25]
+      skip @[Conditional.scala 40:58]
+    else : @[Conditional.scala 39:67]
+      node _T_10 = eq(UInt<1>("h01"), _T_6) @[Conditional.scala 37:30]
+      when _T_10 : @[Conditional.scala 39:67]
+        node _T_11 = bits(io.instRead, 17, 8) @[ControlUnit.scala 48:24]
+        node _T_12 = bits(io.instRead, 7, 4) @[ControlUnit.scala 49:25]
+        node _T_13 = bits(io.instRead, 3, 0) @[ControlUnit.scala 50:25]
+        skip @[Conditional.scala 39:67]
+      else : @[Conditional.scala 39:67]
+        node _T_14 = eq(UInt<2>("h02"), _T_6) @[Conditional.scala 37:30]
+        when _T_14 : @[Conditional.scala 39:67]
+          node _T_15 = bits(io.instRead, 17, 8) @[ControlUnit.scala 53:24]
+          node _T_16 = bits(io.instRead, 7, 4) @[ControlUnit.scala 54:25]
+          node _T_17 = bits(io.instRead, 3, 0) @[ControlUnit.scala 55:25]
+          skip @[Conditional.scala 39:67]
     
   module ALU : 
     input clock : Clock
     input reset : Reset
-    output io : {}
+    output io : {flip a : UInt<32>, flip b : UInt<32>, flip im : UInt<16>, flip sel : UInt<4>, res : UInt<32>, comp : UInt<1>}
     
+    io.res <= UInt<1>("h00") @[ALU.scala 25:7]
+    io.comp <= UInt<1>("h00") @[ALU.scala 26:8]
+    node _T = eq(UInt<1>("h00"), io.sel) @[Conditional.scala 37:30]
+    when _T : @[Conditional.scala 40:58]
+      node _T_1 = add(io.a, io.im) @[ALU.scala 32:16]
+      node _T_2 = tail(_T_1, 1) @[ALU.scala 32:16]
+      io.res <= _T_2 @[ALU.scala 32:11]
+      skip @[Conditional.scala 40:58]
+    else : @[Conditional.scala 39:67]
+      node _T_3 = eq(UInt<1>("h01"), io.sel) @[Conditional.scala 37:30]
+      when _T_3 : @[Conditional.scala 39:67]
+        node _T_4 = add(io.a, io.b) @[ALU.scala 35:16]
+        node _T_5 = tail(_T_4, 1) @[ALU.scala 35:16]
+        io.res <= _T_5 @[ALU.scala 35:11]
+        skip @[Conditional.scala 39:67]
+      else : @[Conditional.scala 39:67]
+        node _T_6 = eq(UInt<2>("h02"), io.sel) @[Conditional.scala 37:30]
+        when _T_6 : @[Conditional.scala 39:67]
+          node _T_7 = sub(io.a, io.im) @[ALU.scala 38:16]
+          node _T_8 = tail(_T_7, 1) @[ALU.scala 38:16]
+          io.res <= _T_8 @[ALU.scala 38:11]
+          skip @[Conditional.scala 39:67]
+        else : @[Conditional.scala 39:67]
+          node _T_9 = eq(UInt<2>("h03"), io.sel) @[Conditional.scala 37:30]
+          when _T_9 : @[Conditional.scala 39:67]
+            node _T_10 = mul(io.a, io.b) @[ALU.scala 41:16]
+            io.res <= _T_10 @[ALU.scala 41:11]
+            skip @[Conditional.scala 39:67]
+          else : @[Conditional.scala 39:67]
+            node _T_11 = eq(UInt<3>("h04"), io.sel) @[Conditional.scala 37:30]
+            when _T_11 : @[Conditional.scala 39:67]
+              io.res <= io.a @[ALU.scala 46:11]
+              skip @[Conditional.scala 39:67]
+            else : @[Conditional.scala 39:67]
+              node _T_12 = eq(UInt<3>("h05"), io.sel) @[Conditional.scala 37:30]
+              when _T_12 : @[Conditional.scala 39:67]
+                io.res <= io.a @[ALU.scala 49:11]
+                skip @[Conditional.scala 39:67]
+              else : @[Conditional.scala 39:67]
+                node _T_13 = eq(UInt<3>("h06"), io.sel) @[Conditional.scala 37:30]
+                when _T_13 : @[Conditional.scala 39:67]
+                  io.res <= io.a @[ALU.scala 52:11]
+                  skip @[Conditional.scala 39:67]
+                else : @[Conditional.scala 39:67]
+                  node _T_14 = eq(UInt<3>("h07"), io.sel) @[Conditional.scala 37:30]
+                  when _T_14 : @[Conditional.scala 39:67]
+                    io.res <= io.im @[ALU.scala 57:11]
+                    io.comp <= UInt<1>("h01") @[ALU.scala 58:12]
+                    skip @[Conditional.scala 39:67]
+                  else : @[Conditional.scala 39:67]
+                    node _T_15 = eq(UInt<4>("h08"), io.sel) @[Conditional.scala 37:30]
+                    when _T_15 : @[Conditional.scala 39:67]
+                      io.res <= io.a @[ALU.scala 61:11]
+                      node _T_16 = eq(io.a, io.b) @[ALU.scala 62:14]
+                      when _T_16 : @[ALU.scala 62:21]
+                        io.comp <= UInt<1>("h01") @[ALU.scala 63:14]
+                        skip @[ALU.scala 62:21]
+                      skip @[Conditional.scala 39:67]
+                    else : @[Conditional.scala 39:67]
+                      node _T_17 = eq(UInt<4>("h09"), io.sel) @[Conditional.scala 37:30]
+                      when _T_17 : @[Conditional.scala 39:67]
+                        io.res <= io.a @[ALU.scala 67:11]
+                        node _T_18 = lt(io.a, io.b) @[ALU.scala 67:24]
+                        node _T_19 = eq(_T_18, UInt<1>("h01")) @[ALU.scala 67:28]
+                        when _T_19 : @[ALU.scala 67:37]
+                          io.comp <= UInt<1>("h01") @[ALU.scala 68:14]
+                          skip @[ALU.scala 67:37]
+                        skip @[Conditional.scala 39:67]
+                      else : @[Conditional.scala 39:67]
+                        node _T_20 = eq(UInt<4>("h0a"), io.sel) @[Conditional.scala 37:30]
+                        when _T_20 : @[Conditional.scala 39:67]
+                          io.res <= UInt<16>("h0ffff") @[ALU.scala 72:12]
+                          io.comp <= UInt<1>("h01") @[ALU.scala 73:13]
+                          skip @[Conditional.scala 39:67]
     
   module CPUTop : 
     input clock : Clock
     input reset : UInt<1>
     output io : {done : UInt<1>, flip run : UInt<1>, flip testerDataMemEnable : UInt<1>, flip testerDataMemAddress : UInt<16>, testerDataMemDataRead : UInt<32>, flip testerDataMemWriteEnable : UInt<1>, flip testerDataMemDataWrite : UInt<32>, flip testerProgMemEnable : UInt<1>, flip testerProgMemAddress : UInt<16>, testerProgMemDataRead : UInt<32>, flip testerProgMemWriteEnable : UInt<1>, flip testerProgMemDataWrite : UInt<32>}
     
-    inst programCounter of ProgramCounter @[CPUTop.scala 23:30]
+    inst programCounter of ProgramCounter @[CPUTop.scala 25:30]
     programCounter.clock <= clock
     programCounter.reset <= reset
-    inst dataMemory of DataMemory @[CPUTop.scala 24:26]
+    inst dataMemory of DataMemory @[CPUTop.scala 26:26]
     dataMemory.clock <= clock
     dataMemory.reset <= reset
-    inst programMemory of ProgramMemory @[CPUTop.scala 25:29]
+    inst programMemory of ProgramMemory @[CPUTop.scala 27:29]
     programMemory.clock <= clock
     programMemory.reset <= reset
-    inst registerFile of RegisterFile @[CPUTop.scala 26:28]
+    inst registerFile of RegisterFile @[CPUTop.scala 28:28]
     registerFile.clock <= clock
     registerFile.reset <= reset
-    inst controlUnit of ControlUnit @[CPUTop.scala 27:27]
+    inst controlUnit of ControlUnit @[CPUTop.scala 29:27]
     controlUnit.clock <= clock
     controlUnit.reset <= reset
-    inst alu of ALU @[CPUTop.scala 28:19]
+    inst alu of ALU @[CPUTop.scala 30:19]
     alu.clock <= clock
     alu.reset <= reset
-    programMemory.io.testerAddress <= io.testerProgMemAddress @[CPUTop.scala 39:34]
-    io.testerProgMemDataRead <= programMemory.io.testerDataRead @[CPUTop.scala 40:28]
-    programMemory.io.testerDataWrite <= io.testerProgMemDataWrite @[CPUTop.scala 41:36]
-    programMemory.io.testerEnable <= io.testerProgMemEnable @[CPUTop.scala 42:33]
-    programMemory.io.testerWriteEnable <= io.testerProgMemWriteEnable @[CPUTop.scala 43:38]
-    dataMemory.io.testerAddress <= io.testerDataMemAddress @[CPUTop.scala 45:31]
-    io.testerDataMemDataRead <= dataMemory.io.testerDataRead @[CPUTop.scala 46:28]
-    dataMemory.io.testerDataWrite <= io.testerDataMemDataWrite @[CPUTop.scala 47:33]
-    dataMemory.io.testerEnable <= io.testerDataMemEnable @[CPUTop.scala 48:30]
-    dataMemory.io.testerWriteEnable <= io.testerDataMemWriteEnable @[CPUTop.scala 49:35]
+    programCounter.io.run <= io.run @[CPUTop.scala 33:25]
+    programMemory.io.address <= programCounter.io.programCounter @[CPUTop.scala 34:28]
+    programMemory.io.testerAddress <= io.testerProgMemAddress @[CPUTop.scala 41:34]
+    io.testerProgMemDataRead <= programMemory.io.testerDataRead @[CPUTop.scala 42:28]
+    programMemory.io.testerDataWrite <= io.testerProgMemDataWrite @[CPUTop.scala 43:36]
+    programMemory.io.testerEnable <= io.testerProgMemEnable @[CPUTop.scala 44:33]
+    programMemory.io.testerWriteEnable <= io.testerProgMemWriteEnable @[CPUTop.scala 45:38]
+    dataMemory.io.testerAddress <= io.testerDataMemAddress @[CPUTop.scala 47:31]
+    io.testerDataMemDataRead <= dataMemory.io.testerDataRead @[CPUTop.scala 48:28]
+    dataMemory.io.testerDataWrite <= io.testerDataMemDataWrite @[CPUTop.scala 49:33]
+    dataMemory.io.testerEnable <= io.testerDataMemEnable @[CPUTop.scala 50:30]
+    dataMemory.io.testerWriteEnable <= io.testerDataMemWriteEnable @[CPUTop.scala 51:35]
     
