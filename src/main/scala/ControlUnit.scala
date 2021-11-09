@@ -7,31 +7,48 @@ class ControlUnit extends Module {
   val io = IO(new Bundle {
     val instRead = Input(UInt(32.W))
     // ProgramCounter control signals
-    var jump = Output(Bool())
-    var stop = Output(Bool())
-    var run = Output(Bool())
+    val jump = Output(Bool())
+    val stop = Output(Bool())
+    val run = Output(Bool())
     // ALU control signals
-    var sel = Output(UInt(4.W))
-    var imi = Output(UInt(10.W))
+    val sel = Output(UInt(4.W))
+    val imi = Output(UInt(10.W))
     // RegisterFile control signals
-    var aSel = Output(UInt(4.W))
-    var bSel = Output(UInt(4.W))
-    var writeSel = Output(UInt(4.W))
-    var writeEnable = Output(Bool()) // b29
+    val aSel = Output(UInt(4.W))
+    val bSel = Output(UInt(4.W))
+    val writeSel = Output(UInt(4.W))
+    val writeEnable = Output(Bool()) // b29
     // DataMemory control signals
-    var dmWriteEnable = Output(Bool()) // b28
+    val dmWriteEnable = Output(Bool()) // b28
 
   })
 
-  // declare variables and assign role to bit in instruction input
+  // declare valiables and assign role to bit in instruction input
+
   val instRead = io.instRead
-  val instType = instRead(31,30)
-  io.run = instRead(29)
-  io.stop = instRead(28)
-  io.sel = instRead(27,24)
-  io.writeEnable = instRead(23)
-  io.dmWriteEnable = instRead(22)
-  io.writeSel = instRead(21,18)
+  var jump = io.jump
+  var stop = io.stop
+  var run = io.run
+  var sel = io.sel
+  var imi = io.imi
+  var aSel = io.aSel
+  var bSel = io.bSel
+  var writeSel = io.writeSel
+  var writeEnable = io.writeEnable
+  var dmWriteEnable = io.dmWriteEnable
+
+  var instType = instRead(31, 30)
+  run := instRead(29)
+  stop := instRead(28)
+  sel := instRead(27, 24)
+  writeEnable := instRead(23)
+  dmWriteEnable := instRead(22)
+  writeSel := instRead(21, 18)
+
+  aSel := instRead(7, 4)
+  bSel := instRead(3, 0)
+  imi := 1.U
+  jump := 0.B
 
   /* Instruction input format:
   R: {00 RS}{sel_}{wW wS}{el 00}{0000}{0000}{aSel}{bSel}
@@ -39,21 +56,13 @@ class ControlUnit extends Module {
   J: {10 RS}{sel_}{wW wS}{el im i___ ____}{aSel}{bSel}
   */
 
-  switch(instRead(31,30)) {
-    is("b00".U){
-      io.aSel = instRead(7,4)
-      io.bSel = instRead(3,0)
-    }
+  switch(instType) {
     is("b01".U){
-      io.imi = instRead(17,8)
-      io.aSel = instRead(7,4)
-      io.bSel = instRead(3,0)
+      imi := instRead(17, 8)
     }
     is("b10".U){
-      io.imi = instRead(17,8)
-      io.aSel = instRead(7,4)
-      io.bSel = instRead(3,0)
-      io.jump = 1.B
+      imi := instRead(17, 8)
+      jump := 1.B
     }
   }
 

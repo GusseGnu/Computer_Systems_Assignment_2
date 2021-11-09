@@ -69,4 +69,9 @@ class CPUTop extends Module {
   dataMemory.io.testerDataWrite := io.testerDataMemDataWrite
   dataMemory.io.testerEnable := io.testerDataMemEnable
   dataMemory.io.testerWriteEnable := io.testerDataMemWriteEnable
+
+  io.done := 0.U
+  when (alu.io.res === 65535.U) {
+    io.done := 1.B
+  }
 }
