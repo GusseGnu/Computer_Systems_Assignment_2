@@ -43,7 +43,7 @@ class ALU extends Module {
 
     // Data transfer
     is("b0100".U) {
-      res := a
+      res := im
     } // LI - Load immediate
     is("b0101".U) {
       res := a
@@ -58,13 +58,13 @@ class ALU extends Module {
       comp := 1.B
     } // JR - Jump
     is("b1000".U) {
-      res := a
+      res := im
       when(a === b) {
         comp := 1.B
       }
     } // JEQ - Jump if equal
     is("b1001".U) {
-      res := a; when(a < b === 1.B) {
+      res := im; when(a < b === 1.B) {
         comp := 1.B
       }
     } // JLT - Jump if less than

@@ -62,7 +62,7 @@ class ControlUnit extends Module {
     }
     is("b10".U){
       imi := instRead(17, 8)
-      jump := 1.B
+      //jump := 1.B
     }
   }
 

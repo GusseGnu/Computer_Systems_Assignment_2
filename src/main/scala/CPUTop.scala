@@ -37,7 +37,7 @@ class CPUTop extends Module {
   programCounter.io.jump := controlUnit.io.jump
   programCounter.io.comp := alu.io.comp
   programCounter.io.stop := controlUnit.io.stop
-  programCounter.io.programCounterJump := alu.io.res(31,16)
+  programCounter.io.programCounterJump := alu.io.res(15,0)
 
   controlUnit.io.instRead := programMemory.io.instructionRead
 

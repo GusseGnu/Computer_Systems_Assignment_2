@@ -1,7 +1,6 @@
 module ProgramCounter(
   input         clock,
   input         reset,
-  input         io_jump,
   input         io_comp,
   input         io_run,
   input         io_stop,
@@ -12,7 +11,6 @@ module ProgramCounter(
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
   reg [15:0] addressCounterReg; // @[ProgramCounter.scala 15:34]
-  wire  jump = io_jump | io_comp; // @[ProgramCounter.scala 16:23]
   wire [15:0] W1 = addressCounterReg + 16'h1; // @[ProgramCounter.scala 19:27]
   wire  _T_3 = ~io_run; // @[ProgramCounter.scala 23:21]
   wire  W3 = io_stop | _T_3; // @[ProgramCounter.scala 23:18]
@@ -65,7 +63,7 @@ end // initial
     if (reset) begin
       addressCounterReg <= 16'h0;
     end else if (!(W3)) begin
-      if (jump) begin
+      if (io_comp) begin
         addressCounterReg <= io_programCounterJump;
       end else begin
         addressCounterReg <= W1;
@@ -193,7 +191,7 @@ module ProgramMemory(
   wire [15:0] memory__T_1_addr; // @[ProgramMemory.scala 16:20]
   wire  memory__T_1_mask; // @[ProgramMemory.scala 16:20]
   wire  memory__T_1_en; // @[ProgramMemory.scala 16:20]
-  wire [31:0] _GEN_5 = io_testerWriteEnable ? io_testerDataWrite : memory__T_data; // @[ProgramMemory.scala 22:32]
+  wire [31:0] _GEN_5 = io_testerWriteEnable ? io_testerDataWrite : memory__T_data; // @[ProgramMemory.scala 24:32]
   assign memory__T_addr = io_testerAddress;
   assign memory__T_data = memory[memory__T_addr]; // @[ProgramMemory.scala 16:20]
   assign memory__T_2_addr = io_address;
@@ -202,8 +200,8 @@ module ProgramMemory(
   assign memory__T_1_addr = io_testerAddress;
   assign memory__T_1_mask = 1'h1;
   assign memory__T_1_en = io_testerEnable & io_testerWriteEnable;
-  assign io_instructionRead = io_testerEnable ? 32'h0 : memory__T_2_data; // @[ProgramMemory.scala 21:24 ProgramMemory.scala 28:24]
-  assign io_testerDataRead = io_testerEnable ? _GEN_5 : 32'h0; // @[ProgramMemory.scala 20:23 ProgramMemory.scala 24:25 ProgramMemory.scala 29:23]
+  assign io_instructionRead = io_testerEnable ? 32'h0 : memory__T_2_data; // @[ProgramMemory.scala 23:21 ProgramMemory.scala 30:21]
+  assign io_testerDataRead = io_testerEnable ? _GEN_5 : 32'h0; // @[ProgramMemory.scala 22:23 ProgramMemory.scala 26:25 ProgramMemory.scala 31:23]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -527,7 +525,6 @@ end // initial
 endmodule
 module ControlUnit(
   input  [31:0] io_instRead,
-  output        io_jump,
   output        io_stop,
   output [3:0]  io_sel,
   output [9:0]  io_imi,
@@ -541,7 +538,6 @@ module ControlUnit(
   wire  _T_8 = 2'h1 == instType; // @[Conditional.scala 37:30]
   wire  _T_10 = 2'h2 == instType; // @[Conditional.scala 37:30]
   wire [9:0] _GEN_0 = _T_10 ? io_instRead[17:8] : 10'h1; // @[Conditional.scala 39:67]
-  assign io_jump = _T_8 ? 1'h0 : _T_10; // @[ControlUnit.scala 51:8 ControlUnit.scala 65:12]
   assign io_stop = io_instRead[28]; // @[ControlUnit.scala 42:8]
   assign io_sel = io_instRead[27:24]; // @[ControlUnit.scala 43:7]
   assign io_imi = _T_8 ? io_instRead[17:8] : _GEN_0; // @[ControlUnit.scala 50:7 ControlUnit.scala 61:11 ControlUnit.scala 64:11]
@@ -575,20 +571,20 @@ module ALU(
   wire  _T_15 = 4'h8 == io_sel; // @[Conditional.scala 37:30]
   wire  _T_16 = io_a == io_b; // @[ALU.scala 62:14]
   wire  _T_17 = 4'h9 == io_sel; // @[Conditional.scala 37:30]
-  wire  _T_18 = io_a < io_b; // @[ALU.scala 67:24]
+  wire  _T_18 = io_a < io_b; // @[ALU.scala 67:25]
   wire  _T_20 = 4'ha == io_sel; // @[Conditional.scala 37:30]
   wire [15:0] _GEN_2 = _T_20 ? 16'hffff : 16'h0; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_4 = _T_17 ? io_a : {{16'd0}, _GEN_2}; // @[Conditional.scala 39:67]
+  wire [15:0] _GEN_4 = _T_17 ? io_im : _GEN_2; // @[Conditional.scala 39:67]
   wire  _GEN_5 = _T_17 ? _T_18 : _T_20; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_6 = _T_15 ? io_a : _GEN_4; // @[Conditional.scala 39:67]
+  wire [15:0] _GEN_6 = _T_15 ? io_im : _GEN_4; // @[Conditional.scala 39:67]
   wire  _GEN_7 = _T_15 ? _T_16 : _GEN_5; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_8 = _T_14 ? {{16'd0}, io_im} : _GEN_6; // @[Conditional.scala 39:67]
+  wire [15:0] _GEN_8 = _T_14 ? io_im : _GEN_6; // @[Conditional.scala 39:67]
   wire  _GEN_9 = _T_14 | _GEN_7; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_10 = _T_13 ? io_a : _GEN_8; // @[Conditional.scala 39:67]
+  wire [31:0] _GEN_10 = _T_13 ? io_a : {{16'd0}, _GEN_8}; // @[Conditional.scala 39:67]
   wire  _GEN_11 = _T_13 ? 1'h0 : _GEN_9; // @[Conditional.scala 39:67]
   wire [31:0] _GEN_12 = _T_12 ? io_a : _GEN_10; // @[Conditional.scala 39:67]
   wire  _GEN_13 = _T_12 ? 1'h0 : _GEN_11; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_14 = _T_11 ? io_a : _GEN_12; // @[Conditional.scala 39:67]
+  wire [31:0] _GEN_14 = _T_11 ? {{16'd0}, io_im} : _GEN_12; // @[Conditional.scala 39:67]
   wire  _GEN_15 = _T_11 ? 1'h0 : _GEN_13; // @[Conditional.scala 39:67]
   wire [63:0] _GEN_16 = _T_9 ? _T_10 : {{32'd0}, _GEN_14}; // @[Conditional.scala 39:67]
   wire  _GEN_17 = _T_9 ? 1'h0 : _GEN_15; // @[Conditional.scala 39:67]
@@ -618,7 +614,6 @@ module CPUTop(
 );
   wire  programCounter_clock; // @[CPUTop.scala 25:30]
   wire  programCounter_reset; // @[CPUTop.scala 25:30]
-  wire  programCounter_io_jump; // @[CPUTop.scala 25:30]
   wire  programCounter_io_comp; // @[CPUTop.scala 25:30]
   wire  programCounter_io_run; // @[CPUTop.scala 25:30]
   wire  programCounter_io_stop; // @[CPUTop.scala 25:30]
@@ -651,7 +646,6 @@ module CPUTop(
   wire [31:0] registerFile_io_a; // @[CPUTop.scala 28:28]
   wire [31:0] registerFile_io_b; // @[CPUTop.scala 28:28]
   wire [31:0] controlUnit_io_instRead; // @[CPUTop.scala 29:27]
-  wire  controlUnit_io_jump; // @[CPUTop.scala 29:27]
   wire  controlUnit_io_stop; // @[CPUTop.scala 29:27]
   wire [3:0] controlUnit_io_sel; // @[CPUTop.scala 29:27]
   wire [9:0] controlUnit_io_imi; // @[CPUTop.scala 29:27]
@@ -669,7 +663,6 @@ module CPUTop(
   ProgramCounter programCounter ( // @[CPUTop.scala 25:30]
     .clock(programCounter_clock),
     .reset(programCounter_reset),
-    .io_jump(programCounter_io_jump),
     .io_comp(programCounter_io_comp),
     .io_run(programCounter_io_run),
     .io_stop(programCounter_io_stop),
@@ -710,7 +703,6 @@ module CPUTop(
   );
   ControlUnit controlUnit ( // @[CPUTop.scala 29:27]
     .io_instRead(controlUnit_io_instRead),
-    .io_jump(controlUnit_io_jump),
     .io_stop(controlUnit_io_stop),
     .io_sel(controlUnit_io_sel),
     .io_imi(controlUnit_io_imi),
@@ -733,11 +725,10 @@ module CPUTop(
   assign io_testerProgMemDataRead = programMemory_io_testerDataRead; // @[CPUTop.scala 62:28]
   assign programCounter_clock = clock;
   assign programCounter_reset = reset;
-  assign programCounter_io_jump = controlUnit_io_jump; // @[CPUTop.scala 37:26]
   assign programCounter_io_comp = alu_io_comp; // @[CPUTop.scala 38:26]
   assign programCounter_io_run = io_run; // @[CPUTop.scala 33:25]
   assign programCounter_io_stop = controlUnit_io_stop; // @[CPUTop.scala 39:26]
-  assign programCounter_io_programCounterJump = alu_io_res[31:16]; // @[CPUTop.scala 40:40]
+  assign programCounter_io_programCounterJump = alu_io_res[15:0]; // @[CPUTop.scala 40:40]
   assign dataMemory_clock = clock;
   assign dataMemory_io_address = programCounter_io_programCounter; // @[CPUTop.scala 57:25]
   assign dataMemory_io_writeEnable = controlUnit_io_dmWriteEnable; // @[CPUTop.scala 56:29]
