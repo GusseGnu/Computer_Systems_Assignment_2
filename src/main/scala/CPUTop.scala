@@ -45,7 +45,7 @@ class CPUTop extends Module {
   registerFile.io.bSel := controlUnit.io.bSel
   registerFile.io.writeSel := controlUnit.io.writeSel
   registerFile.io.writeEnable := controlUnit.io.writeEnable
-  registerFile.io.writeData := Mux(controlUnit.io.writeDataSel, alu.io.res, dataMemory.io.dataRead)
+  registerFile.io.writeData := Mux(controlUnit.io.writeDataSel, dataMemory.io.dataRead, alu.io.res)
 
   alu.io.a := registerFile.io.a
   alu.io.b := registerFile.io.b

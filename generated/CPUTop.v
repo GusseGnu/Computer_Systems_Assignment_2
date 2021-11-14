@@ -746,7 +746,7 @@ module CPUTop(
   assign registerFile_clock = clock;
   assign registerFile_io_aSel = controlUnit_io_aSel; // @[CPUTop.scala 44:24]
   assign registerFile_io_bSel = controlUnit_io_bSel; // @[CPUTop.scala 45:24]
-  assign registerFile_io_writeData = controlUnit_io_writeDataSel ? alu_io_res : dataMemory_io_dataRead; // @[CPUTop.scala 48:29]
+  assign registerFile_io_writeData = controlUnit_io_writeDataSel ? dataMemory_io_dataRead : alu_io_res; // @[CPUTop.scala 48:29]
   assign registerFile_io_writeSel = controlUnit_io_writeSel; // @[CPUTop.scala 46:28]
   assign registerFile_io_writeEnable = controlUnit_io_writeEnable; // @[CPUTop.scala 47:31]
   assign controlUnit_io_instRead = programMemory_io_instructionRead; // @[CPUTop.scala 42:27]

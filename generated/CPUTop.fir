@@ -230,7 +230,7 @@ circuit CPUTop :
     registerFile.io.bSel <= controlUnit.io.bSel @[CPUTop.scala 45:24]
     registerFile.io.writeSel <= controlUnit.io.writeSel @[CPUTop.scala 46:28]
     registerFile.io.writeEnable <= controlUnit.io.writeEnable @[CPUTop.scala 47:31]
-    node _T_2 = mux(controlUnit.io.writeDataSel, alu.io.res, dataMemory.io.dataRead) @[CPUTop.scala 48:35]
+    node _T_2 = mux(controlUnit.io.writeDataSel, dataMemory.io.dataRead, alu.io.res) @[CPUTop.scala 48:35]
     registerFile.io.writeData <= _T_2 @[CPUTop.scala 48:29]
     alu.io.a <= registerFile.io.a @[CPUTop.scala 50:12]
     alu.io.b <= registerFile.io.b @[CPUTop.scala 51:12]
