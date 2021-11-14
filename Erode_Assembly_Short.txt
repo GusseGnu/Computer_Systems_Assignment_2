@@ -1,37 +1,39 @@
-LI R1, 0                // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R2, 0                // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R3, 0                // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R4, 400              // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R6, 20               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R7, 19               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R8, 255              // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LD R5, R3               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R1, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R2, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R1, R7          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R2, R7          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R5, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JR 17                   // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-SD R0, R4               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JR 30                   // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-SUBI R9, R3, 1          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-SUBI R10, R3, 20        // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R11, R3, 1         // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R12, R3, 20        // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LD R5, R9               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R5, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LD R5, R10              // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R5, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LD R5, R11              // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R5, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LD R5, R12              // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JEQ 15, R5, R0          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-SD R8, R4               // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R3, R3, 1          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R4, R4, 1          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R1, R1, 1          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JLT 8, R1, R6           // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-LI R1, 0                // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-ADDI R2, R2, 1          // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-JLT 8, R2, R6           // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
-END                     // {0 [jumpCU] [writeDataSel] [stop]}{sel}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
+LI R1, 0                // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [00    }{01]   [00 0000 0000]}{0000}{0000}
+LI R2, 0                // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [00    }{10]   [00 0000 0000]}{0000}{0000}
+LI R3, 0                // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [00    }{11]   [00 0000 0000]}{0000}{0000}
+LI R4, 400              // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [01    }{00]   [01 1001 0000]}{0000}{0000}
+LI R6, 20               // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [01    }{10]   [00 0001 0100]}{0000}{0000}
+LI R7, 19               // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [01    }{11]   [00 0001 0011]}{0000}{0000}
+LI R8, 255              // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [10    }{00]   [00 1111 1111]}{0000}{0000}
+LD R5, R3               // {0 [0]      [1]            [0]   }{0101}{[1]           [0]             [01    }{01]   [00 0000 0000]}{0101}{0011}
+JEQ 15, R1, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0001}{0000}
+JEQ 15, R2, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0010}{0000}
+JEQ 15, R1, R7          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0001}{0111}
+JEQ 15, R2, R7          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0010}{0111}
+JEQ 15, R5, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0101}{0000}
+JR 17                   // {0 [1]      [0]            [0]   }{0111}{[0]           [0]             [00    }{00]   [00 0001 0000]}{0000}{0000}
+SD R0, R4               // {0 [0]      [0]            [0]   }{0110}{[0]           [1]             [00    }{00]   [00 0000 0000]}{0000}{0100}
+JR 30                   // {0 [1]      [0]            [0]   }{0111}{[0]           [0]             [00    }{00]   [00 0001 1101]}{0000}{0000}
+SUBI R9, R3, 1          // {0 [0]      [0]            [0]   }{0010}{[1]           [0]             [10    }{01]   [00 0000 0001]}{0011}{0000}
+SUBI R10, R3, 20        // {0 [0]      [0]            [0]   }{0010}{[1]           [0]             [10    }{10]   [00 0001 0100]}{0011}{0000}
+ADDI R11, R3, 1         // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [10    }{11]   [00 0000 0001]}{0011}{0000}
+ADDI R12, R3, 20        // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [11    }{00]   [00 0001 0100]}{0011}{0000}
+LD R5, R9               // {0 [0]      [1]            [0]   }{0101}{[1]           [0]             [01    }{01]   [00 0000 0000]}{0101}{1001}
+JEQ 15, R5, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0101}{0000}
+LD R5, R10              // {0 [0]      [1]            [0]   }{0101}{[1]           [0]             [01    }{01]   [00 0000 0000]}{0101}{1010}
+JEQ 15, R5, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0101}{0000}
+LD R5, R11              // {0 [0]      [1]            [0]   }{0101}{[1]           [0]             [01    }{01]   [00 0000 0000]}{0101}{1011}
+JEQ 15, R5, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0101}{0000}
+LD R5, R12              // {0 [0]      [1]            [0]   }{0101}{[1]           [0]             [01    }{01]   [00 0000 0000]}{0101}{1100}
+JEQ 15, R5, R0          // {0 [0]      [0]            [0]   }{1000}{[0]           [0]             [00    }{00]   [00 0000 1110]}{0101}{0000}
+SD R8, R4               // {0 [0]      [0]            [0]   }{0110}{[0]           [1]             [00    }{00]   [00 0000 0000]}{1000}{0100}
+ADDI R3, R3, 1          // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [00    }{11]   [00 0000 0001]}{0011}{0000}
+ADDI R4, R4, 1          // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [01    }{00]   [00 0000 0001]}{0100}{0000}
+ADDI R1, R1, 1          // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [00    }{01]   [00 0000 0001]}{0001}{0000}
+JLT 8, R1, R6           // {0 [0]      [0]            [0]   }{1001}{[0]           [0]             [00    }{00]   [00 0000 0111]}{0001}{0110}
+LI R1, 0                // {0 [0]      [0]            [0]   }{0100}{[1]           [1]             [00    }{01]   [00 0000 0000]}{0000}{0000}
+ADDI R2, R2, 1          // {0 [0]      [0]            [0]   }{0000}{[1]           [0]             [00    }{10]   [00 0000 0001]}{0010}{0000}
+JLT 8, R2, R6           // {0 [0]      [0]            [0]   }{1001}{[0]           [0]             [00    }{00]   [00 0000 0111]}{0010}{0110}
+END                     // {0 [0]      [0]            [1]   }{1010}{[0]           [0]             [00    }{00]   [00 0000 0000]}{0000}{0000}
+                        // {0 [jumpCU] [writeDataSel] [stop]}{sel_}{[writeEnable] [dmWriteEnable] [write-}{-Sel] [im i___ ____]}{aSel}{bSel}
+

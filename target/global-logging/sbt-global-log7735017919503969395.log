@@ -1,0 +1,9 @@
+[debug] > Exec(test:runMain CPUTopTester, None, None)
+[debug] Evaluating tasks: Test / runMain
+[warn] sbt 0.13 shell syntax is deprecated; use slash syntax instead: Test / runMain
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 1 Scala source to C:\Users\Aleksandar\Computer_Systems_Assignment_2\target\scala-2.12\test-classes ...
+[info] done compiling
+[warn] multiple main classes detected: run 'show discoveredMainClasses' to see the list
+[success] Total time: 8 s, completed 14-11-2021 20:38:08
+[debug] > Exec(idea-shell, None, None)

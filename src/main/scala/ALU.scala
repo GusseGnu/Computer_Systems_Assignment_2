@@ -28,50 +28,50 @@ class ALU extends Module {
   // The ALU selection
   switch(sel) { // Op-code
     // Arithmetic
-    is("b0000".U) {
+    is("b0000".U) { // ADDI - Immediate Add
       res := a + im
-    } // ADDI - Immediate Add
-    is("b0001".U) {
+    }
+    is("b0001".U) { // ADD - Addition
       res := a + b
-    } // ADD - Addition
-    is("b0010".U) {
+    }
+    is("b0010".U) { //SUBI - Immediate Sub
       res := a - im
-    } //SUBI - Immediate Sub
-    is("b0011".U){
+    }
+    is("b0011".U){ // MULT - Multiplication
       res := a * b
-    } // MULT - Multiplication
+    }
 
     // Data transfer
-    is("b0100".U) {
+    is("b0100".U) { // LI - Load immediate
       res := im
-    } // LI - Load immediate
-    is("b0101".U) {
+    }
+    is("b0101".U) { // LD - Load data
       res := a
-    } // LD - Load data
-    is("b0110".U) {
+    }
+    is("b0110".U) { // SD - Store data
       res := a
-    } // SD - Store data
+    }
 
     // Branches
-    is("b0111".U) {
+    is("b0111".U) { // JR - Jump
       res := im
       comp := 1.B
-    } // JR - Jump
-    is("b1000".U) {
+    }
+    is("b1000".U) { // JEQ - Jump if equal
       res := im
       when(a === b) {
         comp := 1.B
       }
-    } // JEQ - Jump if equal
-    is("b1001".U) {
+    }
+    is("b1001".U) { // JLT - Jump if less than
       res := im; when(a < b === 1.B) {
         comp := 1.B
       }
-    } // JLT - Jump if less than
-     is("b1010".U){
+    }
+     is("b1010".U){ // END - End execution. Set to max value for 16 bit
        res := 65535.U
        comp := 1.B
-     } // END - End execution. Set to max value for 16 bit
+     }
 
 
     //    // Logical
