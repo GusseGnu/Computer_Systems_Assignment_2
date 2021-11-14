@@ -5,7 +5,7 @@ import chisel3._
 class ProgramCounter extends Module {
   val io = IO(new Bundle {
     val jump = Input(Bool())
-    val comp = Input(Bool())
+    //val comp = Input(Bool())
     val run = Input(Bool())
     val stop = Input(Bool())
     val programCounterJump = Input(UInt(16.W))
@@ -13,7 +13,8 @@ class ProgramCounter extends Module {
   })
 
   val addressCounterReg = RegInit(0.U(16.W))
-  val jump = (io.jump || io.comp)
+  //val jump = (io.jump || io.comp)
+  val jump = io.jump
 
   val W1 = Wire(UInt(16.W))
   W1 := addressCounterReg + 1.U(16.W)

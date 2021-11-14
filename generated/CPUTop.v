@@ -1,7 +1,7 @@
 module ProgramCounter(
   input         clock,
   input         reset,
-  input         io_comp,
+  input         io_jump,
   input         io_run,
   input         io_stop,
   input  [15:0] io_programCounterJump,
@@ -11,10 +11,10 @@ module ProgramCounter(
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
   reg [15:0] addressCounterReg; // @[ProgramCounter.scala 15:34]
-  wire [15:0] W1 = addressCounterReg + 16'h1; // @[ProgramCounter.scala 19:27]
-  wire  _T_3 = ~io_run; // @[ProgramCounter.scala 23:21]
-  wire  W3 = io_stop | _T_3; // @[ProgramCounter.scala 23:18]
-  assign io_programCounter = addressCounterReg; // @[ProgramCounter.scala 28:21]
+  wire [15:0] W1 = addressCounterReg + 16'h1; // @[ProgramCounter.scala 20:27]
+  wire  _T_3 = ~io_run; // @[ProgramCounter.scala 24:21]
+  wire  W3 = io_stop | _T_3; // @[ProgramCounter.scala 24:18]
+  assign io_programCounter = addressCounterReg; // @[ProgramCounter.scala 29:21]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -63,7 +63,7 @@ end // initial
     if (reset) begin
       addressCounterReg <= 16'h0;
     end else if (!(W3)) begin
-      if (io_comp) begin
+      if (io_jump) begin
         addressCounterReg <= io_programCounterJump;
       end else begin
         addressCounterReg <= W1;
@@ -526,6 +526,7 @@ endmodule
 module ControlUnit(
   input  [31:0] io_instRead,
   output        io_stop,
+  output        io_writeDataSel,
   output [3:0]  io_sel,
   output [9:0]  io_imi,
   output [3:0]  io_aSel,
@@ -534,18 +535,15 @@ module ControlUnit(
   output        io_writeEnable,
   output        io_dmWriteEnable
 );
-  wire [1:0] instType = io_instRead[31:30]; // @[ControlUnit.scala 40:26]
-  wire  _T_8 = 2'h1 == instType; // @[Conditional.scala 37:30]
-  wire  _T_10 = 2'h2 == instType; // @[Conditional.scala 37:30]
-  wire [9:0] _GEN_0 = _T_10 ? io_instRead[17:8] : 10'h1; // @[Conditional.scala 39:67]
-  assign io_stop = io_instRead[28]; // @[ControlUnit.scala 42:8]
-  assign io_sel = io_instRead[27:24]; // @[ControlUnit.scala 43:7]
-  assign io_imi = _T_8 ? io_instRead[17:8] : _GEN_0; // @[ControlUnit.scala 50:7 ControlUnit.scala 61:11 ControlUnit.scala 64:11]
-  assign io_aSel = io_instRead[7:4]; // @[ControlUnit.scala 48:8]
-  assign io_bSel = io_instRead[3:0]; // @[ControlUnit.scala 49:8]
-  assign io_writeSel = io_instRead[21:18]; // @[ControlUnit.scala 46:12]
-  assign io_writeEnable = io_instRead[23]; // @[ControlUnit.scala 44:15]
-  assign io_dmWriteEnable = io_instRead[22]; // @[ControlUnit.scala 45:17]
+  assign io_stop = io_instRead[28]; // @[ControlUnit.scala 48:8]
+  assign io_writeDataSel = io_instRead[29]; // @[ControlUnit.scala 47:16]
+  assign io_sel = io_instRead[27:24]; // @[ControlUnit.scala 49:7]
+  assign io_imi = io_instRead[17:8]; // @[ControlUnit.scala 42:7 ControlUnit.scala 53:7]
+  assign io_aSel = io_instRead[7:4]; // @[ControlUnit.scala 54:8]
+  assign io_bSel = io_instRead[3:0]; // @[ControlUnit.scala 55:8]
+  assign io_writeSel = io_instRead[21:18]; // @[ControlUnit.scala 52:12]
+  assign io_writeEnable = io_instRead[23]; // @[ControlUnit.scala 50:15]
+  assign io_dmWriteEnable = io_instRead[22]; // @[ControlUnit.scala 51:17]
 endmodule
 module ALU(
   input  [31:0] io_a,
@@ -614,7 +612,7 @@ module CPUTop(
 );
   wire  programCounter_clock; // @[CPUTop.scala 25:30]
   wire  programCounter_reset; // @[CPUTop.scala 25:30]
-  wire  programCounter_io_comp; // @[CPUTop.scala 25:30]
+  wire  programCounter_io_jump; // @[CPUTop.scala 25:30]
   wire  programCounter_io_run; // @[CPUTop.scala 25:30]
   wire  programCounter_io_stop; // @[CPUTop.scala 25:30]
   wire [15:0] programCounter_io_programCounterJump; // @[CPUTop.scala 25:30]
@@ -647,6 +645,7 @@ module CPUTop(
   wire [31:0] registerFile_io_b; // @[CPUTop.scala 28:28]
   wire [31:0] controlUnit_io_instRead; // @[CPUTop.scala 29:27]
   wire  controlUnit_io_stop; // @[CPUTop.scala 29:27]
+  wire  controlUnit_io_writeDataSel; // @[CPUTop.scala 29:27]
   wire [3:0] controlUnit_io_sel; // @[CPUTop.scala 29:27]
   wire [9:0] controlUnit_io_imi; // @[CPUTop.scala 29:27]
   wire [3:0] controlUnit_io_aSel; // @[CPUTop.scala 29:27]
@@ -663,7 +662,7 @@ module CPUTop(
   ProgramCounter programCounter ( // @[CPUTop.scala 25:30]
     .clock(programCounter_clock),
     .reset(programCounter_reset),
-    .io_comp(programCounter_io_comp),
+    .io_jump(programCounter_io_jump),
     .io_run(programCounter_io_run),
     .io_stop(programCounter_io_stop),
     .io_programCounterJump(programCounter_io_programCounterJump),
@@ -704,6 +703,7 @@ module CPUTop(
   ControlUnit controlUnit ( // @[CPUTop.scala 29:27]
     .io_instRead(controlUnit_io_instRead),
     .io_stop(controlUnit_io_stop),
+    .io_writeDataSel(controlUnit_io_writeDataSel),
     .io_sel(controlUnit_io_sel),
     .io_imi(controlUnit_io_imi),
     .io_aSel(controlUnit_io_aSel),
@@ -725,12 +725,12 @@ module CPUTop(
   assign io_testerProgMemDataRead = programMemory_io_testerDataRead; // @[CPUTop.scala 62:28]
   assign programCounter_clock = clock;
   assign programCounter_reset = reset;
-  assign programCounter_io_comp = alu_io_comp; // @[CPUTop.scala 38:26]
+  assign programCounter_io_jump = alu_io_comp; // @[CPUTop.scala 37:26]
   assign programCounter_io_run = io_run; // @[CPUTop.scala 33:25]
   assign programCounter_io_stop = controlUnit_io_stop; // @[CPUTop.scala 39:26]
   assign programCounter_io_programCounterJump = alu_io_res[15:0]; // @[CPUTop.scala 40:40]
   assign dataMemory_clock = clock;
-  assign dataMemory_io_address = programCounter_io_programCounter; // @[CPUTop.scala 57:25]
+  assign dataMemory_io_address = registerFile_io_b[15:0]; // @[CPUTop.scala 57:25]
   assign dataMemory_io_writeEnable = controlUnit_io_dmWriteEnable; // @[CPUTop.scala 56:29]
   assign dataMemory_io_dataWrite = alu_io_res; // @[CPUTop.scala 55:27]
   assign dataMemory_io_testerEnable = io_testerDataMemEnable; // @[CPUTop.scala 70:30]
@@ -746,7 +746,7 @@ module CPUTop(
   assign registerFile_clock = clock;
   assign registerFile_io_aSel = controlUnit_io_aSel; // @[CPUTop.scala 44:24]
   assign registerFile_io_bSel = controlUnit_io_bSel; // @[CPUTop.scala 45:24]
-  assign registerFile_io_writeData = dataMemory_io_dataRead; // @[CPUTop.scala 48:29]
+  assign registerFile_io_writeData = controlUnit_io_writeDataSel ? alu_io_res : dataMemory_io_dataRead; // @[CPUTop.scala 48:29]
   assign registerFile_io_writeSel = controlUnit_io_writeSel; // @[CPUTop.scala 46:28]
   assign registerFile_io_writeEnable = controlUnit_io_writeEnable; // @[CPUTop.scala 47:31]
   assign controlUnit_io_instRead = programMemory_io_instructionRead; // @[CPUTop.scala 42:27]

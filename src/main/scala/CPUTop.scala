@@ -34,8 +34,8 @@ class CPUTop extends Module {
   programMemory.io.address := programCounter.io.programCounter
 
   ////////////////////////////////////////////
-  programCounter.io.jump := controlUnit.io.jump
-  programCounter.io.comp := alu.io.comp
+  programCounter.io.jump := (controlUnit.io.jumpCU || alu.io.comp)
+  //programCounter.io.comp := alu.io.comp
   programCounter.io.stop := controlUnit.io.stop
   programCounter.io.programCounterJump := alu.io.res(15,0)
 
@@ -45,7 +45,7 @@ class CPUTop extends Module {
   registerFile.io.bSel := controlUnit.io.bSel
   registerFile.io.writeSel := controlUnit.io.writeSel
   registerFile.io.writeEnable := controlUnit.io.writeEnable
-  registerFile.io.writeData := dataMemory.io.dataRead
+  registerFile.io.writeData := Mux(controlUnit.io.writeDataSel, alu.io.res, dataMemory.io.dataRead)
 
   alu.io.a := registerFile.io.a
   alu.io.b := registerFile.io.b
@@ -54,7 +54,7 @@ class CPUTop extends Module {
 
   dataMemory.io.dataWrite := alu.io.res
   dataMemory.io.writeEnable := controlUnit.io.dmWriteEnable
-  dataMemory.io.address := programCounter.io.programCounter
+  dataMemory.io.address := registerFile.io.b
   ////////////////////////////////////////////
 
   //This signals are used by the tester for loading the program to the program memory, do not touch

@@ -1,0 +1,191 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sat Nov 13 23:46:40 2021
+[*]
+[dumpfile] "C:\Users\Aleksandar Lukic\Computer_Systems_Assignment_2\generated\CPUTop.vcd"
+[dumpfile_mtime] "Wed Nov 10 14:58:25 2021"
+[dumpfile_size] 14495781
+[savefile] "C:\Users\Aleksandar Lukic\Computer_Systems_Assignment_2\generated\CPUTopShow.gtkw"
+[timestart] 6096
+[size] 1920 1027
+[pos] -1929 -9
+*-6.679704 6192 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] CPUTop.
+[treeopen] CPUTop.programCounter.
+[sst_width] 211
+[signals_width] 361
+[sst_expanded] 1
+[sst_vpaned_height] 294
+@204
+-
+-CPUTop
+-
+@24
+[color] 7
+CPUTop.clock
+[color] 7
+CPUTop.controlUnit
+[color] 7
+CPUTop.dataMemory
+[color] 7
+CPUTop.io_done
+[color] 7
+CPUTop.io_run
+[color] 7
+CPUTop.registerFile
+[color] 7
+CPUTop.reset
+@204
+-
+-ControlUnit
+-
+@24
+[color] 1
+CPUTop.controlUnit.instType[1:0]
+[color] 1
+CPUTop.controlUnit.io_aSel[3:0]
+[color] 1
+CPUTop.controlUnit.io_bSel[3:0]
+[color] 1
+CPUTop.controlUnit.io_dmWriteEnable
+[color] 1
+CPUTop.controlUnit.io_imi[9:0]
+[color] 1
+CPUTop.controlUnit.io_instRead[31:0]
+@25
+[color] 1
+CPUTop.controlUnit.io_sel[3:0]
+@24
+[color] 1
+CPUTop.controlUnit.io_stop
+[color] 1
+CPUTop.controlUnit.io_writeEnable
+[color] 1
+CPUTop.controlUnit.io_writeSel[3:0]
+@204
+-
+-ProgramCounter
+-
+@c00024
+[color] 2
+CPUTop.programCounter.addressCounterReg[15:0]
+@28
+(0)CPUTop.programCounter.addressCounterReg[15:0]
+(1)CPUTop.programCounter.addressCounterReg[15:0]
+(2)CPUTop.programCounter.addressCounterReg[15:0]
+(3)CPUTop.programCounter.addressCounterReg[15:0]
+(4)CPUTop.programCounter.addressCounterReg[15:0]
+(5)CPUTop.programCounter.addressCounterReg[15:0]
+(6)CPUTop.programCounter.addressCounterReg[15:0]
+(7)CPUTop.programCounter.addressCounterReg[15:0]
+(8)CPUTop.programCounter.addressCounterReg[15:0]
+(9)CPUTop.programCounter.addressCounterReg[15:0]
+(10)CPUTop.programCounter.addressCounterReg[15:0]
+(11)CPUTop.programCounter.addressCounterReg[15:0]
+(12)CPUTop.programCounter.addressCounterReg[15:0]
+(13)CPUTop.programCounter.addressCounterReg[15:0]
+(14)CPUTop.programCounter.addressCounterReg[15:0]
+(15)CPUTop.programCounter.addressCounterReg[15:0]
+@1401204
+-group_end
+@24
+[color] 2
+CPUTop.programCounter.clock
+[color] 2
+CPUTop.programCounter.io_comp
+[color] 2
+CPUTop.programCounter.io_programCounterJump[15:0]
+[color] 2
+CPUTop.programCounter.io_programCounter[15:0]
+[color] 2
+CPUTop.programCounter.io_run
+[color] 2
+CPUTop.programCounter.io_stop
+[color] 2
+CPUTop.programCounter.reset
+@204
+-
+-ALU
+-
+@24
+[color] 3
+CPUTop.alu.io_a[31:0]
+[color] 3
+CPUTop.alu.io_b[31:0]
+[color] 3
+CPUTop.alu.io_comp
+[color] 3
+CPUTop.alu.io_im[15:0]
+[color] 3
+CPUTop.alu.io_res[31:0]
+[color] 3
+CPUTop.alu.io_sel[3:0]
+@204
+-
+-DataMemory
+-
+@24
+CPUTop.dataMemory.clock
+CPUTop.dataMemory.io_address[15:0]
+CPUTop.dataMemory.io_dataRead[31:0]
+CPUTop.dataMemory.io_dataWrite[31:0]
+CPUTop.dataMemory.io_testerAddress[15:0]
+CPUTop.dataMemory.io_testerDataRead[31:0]
+CPUTop.dataMemory.io_testerDataWrite[31:0]
+CPUTop.dataMemory.io_testerEnable
+CPUTop.dataMemory.io_testerWriteEnable
+CPUTop.dataMemory.io_writeEnable
+CPUTop.dataMemory.memory[31:0]
+@204
+-
+-RegisterFile
+-
+@24
+[color] 5
+CPUTop.registerFile.io_aSel[3:0]
+[color] 5
+CPUTop.registerFile.io_a[31:0]
+[color] 5
+CPUTop.registerFile.io_bSel[3:0]
+[color] 5
+CPUTop.registerFile.io_b[31:0]
+[color] 5
+CPUTop.registerFile.io_writeData[31:0]
+[color] 5
+CPUTop.registerFile.io_writeEnable
+[color] 5
+CPUTop.registerFile.io_writeSel[3:0]
+[color] 5
+CPUTop.registerFile.registers_0[31:0]
+[color] 5
+CPUTop.registerFile.registers_1[31:0]
+[color] 5
+CPUTop.registerFile.registers_2[31:0]
+[color] 5
+CPUTop.registerFile.registers_3[31:0]
+[color] 5
+CPUTop.registerFile.registers_4[31:0]
+[color] 5
+CPUTop.registerFile.registers_5[31:0]
+[color] 5
+CPUTop.registerFile.registers_6[31:0]
+[color] 5
+CPUTop.registerFile.registers_7[31:0]
+[color] 5
+CPUTop.registerFile.registers_8[31:0]
+[color] 5
+CPUTop.registerFile.registers_9[31:0]
+[color] 5
+CPUTop.registerFile.registers_10[31:0]
+[color] 5
+CPUTop.registerFile.registers_11[31:0]
+[color] 5
+CPUTop.registerFile.registers_12[31:0]
+[color] 5
+CPUTop.registerFile.registers_13[31:0]
+[color] 5
+CPUTop.registerFile.registers_14[31:0]
+[color] 5
+CPUTop.registerFile.registers_15[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
