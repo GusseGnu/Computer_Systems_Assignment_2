@@ -38,5 +38,4 @@ class RegisterFile extends Module {
   a := registers(aSel)
   b := registers(bSel)
 
-  // https://therestlessengineer.com/processor-episode-3/
 }

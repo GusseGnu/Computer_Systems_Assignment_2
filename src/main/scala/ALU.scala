@@ -73,15 +73,5 @@ class ALU extends Module {
        comp := 1.B
      }
 
-
-    //    // Logical
-    //    is("b0100".U){res = a | b} // OR - Bitwise OR
-    //    is("b0101".U){res = a & b} // AND - Bitwise AND
-    //    is("b0110".U){res = !a} // NOT - Bitwise NOT
-
-    // Branches
-    //    is("b1101".U){res = } // JGT - Jump if greater than
-    //    is("b1110".U){res = } // NOP - No operation
-
   }
 }

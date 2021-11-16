@@ -35,7 +35,6 @@ class CPUTop extends Module {
 
   ////////////////////////////////////////////
   programCounter.io.jump := (controlUnit.io.jumpCU || alu.io.comp)
-  //programCounter.io.comp := alu.io.comp
   programCounter.io.stop := controlUnit.io.stop
   programCounter.io.programCounterJump := alu.io.res(15,0)
 
@@ -70,6 +69,7 @@ class CPUTop extends Module {
   dataMemory.io.testerEnable := io.testerDataMemEnable
   dataMemory.io.testerWriteEnable := io.testerDataMemWriteEnable
 
+  // End-execution case
   io.done := 0.U
   when (alu.io.res === 65535.U) {
     io.done := 1.B

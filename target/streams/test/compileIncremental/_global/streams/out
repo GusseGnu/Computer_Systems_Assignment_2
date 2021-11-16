@@ -2,27 +2,27 @@
 [debug] IncrementalCompile.incrementalCompile
 [debug] previous = Stamps for: 14 products, 7 sources, 3 libraries
 [debug] current source = Set(${BASE}/src/test/scala/ProgramCounterTester.scala, ${BASE}/src/test/scala/ProgramMemoryTester.scala, ${BASE}/src/test/scala/HelloTester.scala, ${BASE}/src/test/scala/CPUTopTester.scala, ${BASE}/src/test/scala/Images.scala, ${BASE}/src/test/scala/Programs.scala, ${BASE}/src/test/scala/ALUTester.scala)
-[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/test/scala/Programs.scala, ${BASE}/src/test/scala/CPUTopTester.scala), unmodified = ...),Set(),Set(),API Changes: Set())
+[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/test/scala/CPUTopTester.scala), unmodified = ...),Set(),Set(),API Changes: Set())
 [debug] 
 [debug] Initial source changes:
 [debug] 	removed: Set()
 [debug] 	added: Set()
-[debug] 	modified: Set(${BASE}/src/test/scala/Programs.scala, ${BASE}/src/test/scala/CPUTopTester.scala)
+[debug] 	modified: Set(${BASE}/src/test/scala/CPUTopTester.scala)
 [debug] Invalidated products: Set()
 [debug] External API changes: API Changes: Set()
 [debug] Modified binary dependencies: Set()
-[debug] Initial directly invalidated classes: Set(Programs, CPUTopTester)
+[debug] Initial directly invalidated classes: Set(CPUTopTester)
 [debug] Sources indirectly invalidated by:
 [debug] 	product: Set()
 [debug] 	binary dep: Set()
 [debug] 	external source: Set()
-[debug] All initially invalidated classes: Set(Programs, CPUTopTester)
-[debug] All initially invalidated sources:Set(${BASE}/src/test/scala/Programs.scala, ${BASE}/src/test/scala/CPUTopTester.scala)
-[debug] Initial set of included nodes: Programs, CPUTopTester
+[debug] All initially invalidated classes: Set(CPUTopTester)
+[debug] All initially invalidated sources:Set(${BASE}/src/test/scala/CPUTopTester.scala)
+[debug] Initial set of included nodes: CPUTopTester
 [debug] compilation cycle 1
-[info] compiling 2 Scala sources to C:\Users\Aleksandar\Computer_Systems_Assignment_2\target\scala-2.12\test-classes ...
+[info] compiling 1 Scala source to C:\Users\Aleksandar\Computer_Systems_Assignment_2\target\scala-2.12\test-classes ...
 [debug] Getting org.scala-sbt:compiler-bridge_2.12:1.5.3:compile for Scala 2.12.8
-[debug] [zinc] Running cached compiler 3ad553b2 for Scala compiler version 2.12.8
+[debug] [zinc] Running cached compiler 309d2026 for Scala compiler version 2.12.8
 [debug] [zinc] The Scala compiler is invoked with:
 [debug] 	-Xsource:2.11
 [debug] 	-bootclasspath
@@ -35,5 +35,5 @@
 [debug] Final step, transitive dependencies:
 [debug] 	Set()
 [debug] No classes were invalidated.
-[debug] Scala compilation took 0.4268331 s
+[debug] Scala compilation took 3.3141606 s
 [info] done compiling
